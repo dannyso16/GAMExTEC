@@ -38,18 +38,24 @@ def drawScore(score:int):
 
 
 # ===== sound effects =====
-# TODO: ひざ神　動作確認してちょ
 def playSE():
     pyxel.play(0, 0)
 
 def playGameover():
-    pyxel.play(1, 0)
+    pyxel.play(0, 1)
 
 
 # ===== main =====
 init()
 
-drawHiyoko(100, HORIZONTAL_Y)
-drawRingo(120, 40)
-drawScore(100)
-pyxel.show()
+hiyokoX = 100
+playGameover()
+
+while True:
+    if pyxel.btn(pyxel.KEY_RIGHT):
+        hiyokoX += 5
+    if pyxel.btn(pyxel.KEY_LEFT):
+        hiyokoX -= 5
+    drawBackGround()
+    drawHiyoko(hiyokoX, HORIZONTAL_Y)
+    pyxel.flip()
