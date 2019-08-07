@@ -1,4 +1,5 @@
 import pyxel
+from random import *
 
 # ===== Constant =====
 HORIZONTAL_Y = 130
@@ -8,6 +9,12 @@ def init():
     pyxel.init(250, 150, caption='NASU')
     pyxel.load('assets/nasu.pyxres')
     drawBackGround()
+
+# TODO: 当たり判定の関数をつくる
+# 膝神へ　引数どうしましょ
+def collide():
+    pass
+
 
 # ===== draw assets =====
 def drawRingo(x, y):
@@ -48,14 +55,23 @@ def playGameover():
 # ===== main =====
 init()
 
+# variables
 hiyokoX = 100
-playGameover()
+ringoX = 100 # TODO: ランダム性の導入
+ringoY = 0
+score = 0
+
+playGameover() # sound test
 
 while True:
     if pyxel.btn(pyxel.KEY_RIGHT):
         hiyokoX += 5
     if pyxel.btn(pyxel.KEY_LEFT):
         hiyokoX -= 5
+    # TODO: 当たり判定
+    # TODO: リンゴが落ちて上に戻る処理
+
     drawBackGround()
     drawHiyoko(hiyokoX, HORIZONTAL_Y)
+    # TODO: リンゴの落下
     pyxel.flip()
