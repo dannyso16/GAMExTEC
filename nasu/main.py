@@ -3,6 +3,7 @@ from random import *
 
 # ===== Constant =====
 HORIZONTAL_Y = 130
+COLLIDE_OFFSET = 5
 
 # TODO: 関数をutilsにわける
 def init():
@@ -10,10 +11,19 @@ def init():
     pyxel.load('assets/nasu.pyxres')
     drawBackGround()
 
-# TODO: 当たり判定の関数をつくる
-# 膝神へ　引数どうしましょ
-def collide():
-    pass
+def initRingo():
+    global ringoX, ringoY
+    ringoX = randrange(0, pyxel.width)
+    ringoY = 0
+
+def collide(ax:int, ay:int, bx:int, by:int) -> bool:
+    """Judge collision between Object A and B
+    """
+    if (abs(ax - bx) <= 16 - COLLIDE_OFFSET) \
+        and (abs(ay - by) <= 16 - COLLIDE_OFFSET):
+        return True
+    else:
+        return False
 
 
 # ===== draw assets =====
@@ -43,6 +53,13 @@ def drawBackGround():
 def drawScore(score:int):
     pyxel.text(10, 142, 'SCORE: {}'.format(score), pyxel.COLOR_WHITE)
 
+def drawAll():
+    drawBackGround()
+    drawRingo(ringoX, ringoY)
+    drawHiyoko(hiyokoX, hiyokoY)
+    drawScore(score)
+    pyxel.flip()
+
 
 # ===== sound effects =====
 def playSE():
@@ -57,21 +74,27 @@ init()
 
 # variables
 hiyokoX = 100
-ringoX = 100 # TODO: ランダム性の導入
+hiyokoY = HORIZONTAL_Y
+ringoX = randrange(0, pyxel.width)
 ringoY = 0
 score = 0
 
-playGameover() # sound test
-
 while True:
+    # keyboard input
     if pyxel.btn(pyxel.KEY_RIGHT):
-        hiyokoX += 5
+        hiyokoX += 4
     if pyxel.btn(pyxel.KEY_LEFT):
-        hiyokoX -= 5
-    # TODO: 当たり判定
-    # TODO: リンゴが落ちて上に戻る処理
+        hiyokoX -= 4
 
-    drawBackGround()
-    drawHiyoko(hiyokoX, HORIZONTAL_Y)
-    # TODO: リンゴの落下
-    pyxel.flip()
+    # 当たり判定
+    if collide(hiyokoX, hiyokoY, ringoX, ringoY):
+        playSE()
+        initRingo()
+        score += 10
+
+    ringoY += 2
+    # 下まで落ちたら戻る
+    if ringoY > pyxel.height:
+        initRingo()
+
+    drawAll()
