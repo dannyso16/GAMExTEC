@@ -35,6 +35,10 @@ def drawOrange(x, y):
     pyxel.blt(x, y, 0,
                 16, 0, 16, 16, pyxel.COLOR_LIGHTGRAY)
 
+def drawRottenRingo(x, y):
+    pyxel.blt(x, y, 0,
+                32, 0, 16, 16, pyxel.COLOR_LIGHTGRAY)
+
 def drawBucket(x, y):
     pyxel.blt(x, y, 0,
                 0, 16, 16, 16, pyxel.COLOR_LIGHTGRAY)
@@ -97,4 +101,9 @@ while True:
     if ringoY > pyxel.height:
         initRingo()
 
-    drawAll()
+    # drawAll()
+    drawBackGround()
+    drawRottenRingo(ringoX, ringoY)
+    drawHiyoko(hiyokoX, hiyokoY)
+    drawScore(score)
+    pyxel.flip()
