@@ -5,7 +5,6 @@ from random import *
 HORIZONTAL_Y = 130
 COLLIDE_OFFSET = 5
 
-# TODO: 関数をutilsにわける
 def init():
     pyxel.init(250, 150, caption='NASU')
     pyxel.load('assets/nasu.pyxres')
