@@ -43,10 +43,19 @@ def drawBucket(x, y):
                 0, 16, 16, 16, pyxel.COLOR_LIGHTGRAY)
 
 def drawHiyoko(x, y):
+    global troubleCnt
     anim_frame_count = pyxel.frame_count // 3
     idx = anim_frame_count % 4 # animation has 4 images
+
+    sign = 1
+    if troubleCnt==0:
+        if randrange(0,200)<1:
+            troubleCnt = 30
+    else:
+        troubleCnt -= 1
+        sign = -1
     pyxel.blt(x, y, 0,
-                idx*16, 32, 16, 16, pyxel.COLOR_LIGHTGRAY)
+                idx*16, 32, 16, sign*16, pyxel.COLOR_LIGHTGRAY)
 
 def drawUribo(x, y):
     anim_frame_count = pyxel.frame_count // 3
@@ -102,14 +111,15 @@ hiyokoY = HORIZONTAL_Y
 ringoX = randrange(0, pyxel.width)
 ringoY = 0
 score = 0
-isLookingLeft = True
+isLookingLeft = True # whether Hiyoko looks left
+troubleCnt = 0 # when 'troubleCnt' > 0. Hiyoko is in trouble
 
 while True:
     # keyboard input
-    if pyxel.btn(pyxel.KEY_RIGHT):
+    if pyxel.btn(pyxel.KEY_RIGHT) and troubleCnt==0:
         hiyokoX += 4
         isLookingLeft = True
-    if pyxel.btn(pyxel.KEY_LEFT):
+    if pyxel.btn(pyxel.KEY_LEFT) and troubleCnt==0:
         hiyokoX -= 4
         isLookingLeft = False
 
@@ -125,7 +135,7 @@ while True:
         initRingo()
 
     # drawAll()
-    drawBackGround()
+    drawBackGround(earthQuake=True)
     drawRingo(ringoX, ringoY)
     drawHiyoko(hiyokoX, hiyokoY)
     drawScore(score)
