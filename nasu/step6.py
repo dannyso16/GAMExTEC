@@ -4,7 +4,6 @@ from random import *
 from time import sleep 
 
 # === 定数(途中で値をいじらない予定のもの) =====================
-HORIZONTAL_Y = 130
 COLLIDE_OFFSET = 5
 
 # === 関数 ===============================================
@@ -106,7 +105,7 @@ init()
 
 # 変数
 hiyokoX = 100
-hiyokoY = HORIZONTAL_Y
+hiyokoY = 130
 initFruit()
 score = 0
 combo = 0

@@ -3,7 +3,6 @@ import pyxel
 from random import *
 
 # === 定数(途中で値をいじらない予定のもの) =====================
-HORIZONTAL_Y = 130
 COLLIDE_OFFSET = 5
 
 # === 関数 ===============================================
@@ -70,7 +69,6 @@ def drawAll():
     drawBackGround()
     drawRingo(ringoX, ringoY)
     drawHiyoko(hiyokoX, hiyokoY)
-    drawScore(score)
     pyxel.flip()
 	
 # ========================================================
@@ -89,9 +87,8 @@ init()
 
 # 変数
 hiyokoX = 100
-hiyokoY = HORIZONTAL_Y
+hiyokoY = 130
 initRingo()
-score = 0
 
 while True:
     # キーボード入出力
@@ -104,7 +101,6 @@ while True:
     if collide(hiyokoX, hiyokoY, ringoX, ringoY):
         playSE()
         initRingo()
-        score += 10
     
     ringoY += 2
     # 下まで落ちたら戻る
